@@ -1,0 +1,95 @@
+Homework Assignment 02
+
+Table of Contents
+I. Goals
+II. Implementation
+III. What I Learned
+IV. Acknowledgements
+
+The stated goal of this assignment (the "things to do") was to create a single .c file that did the following:
+
+1) Use a Taylor Series to approximate sin(x) where x is a quantity of degrees
+2) Populate a lookup table that holds 360 terms using the Taylor Series
+   - essentially storing the approximate sin value of each integer degree in a circle.
+3) Use linear interpolation to get a closer approximation of values not stored in the lookup table,
+   aka floating point degree quantities like 43.543 and 359.1
+4) Find the error (difference) between the result of the linear interpolation of the lookup table
+   and the result of simply calling sin(x), the math.h function, which is more or less exact.
+5) Get user input to calculate the approximation, the true sin of the input, and the error between those two.
+6) Print out user input, the approximation, the true sin, and the error, each separated by a space.
+7) Use assert() for pre and post conditions of functions in order to catch errors.
+8) Able to accept bash redirection via the command line for input
+9) Given a specific data set, use bash redirection via the command line to feed it to the .c file,
+   create an ofile of the outputs, then use gnuplot to graph the data in ofile.
+8) Do all of this using only the headers stdio.h, math.h, and assert.h
+
+See how I implemented all of that under II. Implementation. But what I feel the true goals of this assignment,
+the "ulterior" motives of the instructor, were as follows:
+
+1) Demonstrate that there are many methods to implement most things.
+   A) Achieved through making three different ways to get sin(degree quantity)
+      - whole number lookup table, linear interpolation, calling sin(x) from math.h
+2) Demonstrate that each method has different ease of implementation and resource use.
+   A) Achieved through showing how the lookup table and interpolation may have had low ease of implementation
+      compared to just calling sin(x) from math.h, but ends up being much faster and using far less resources
+      than calling sin(x) from math.h. 
+      lookup/interpolation is faster/less resource intensive because it does the complex approximation of sin(x)
+      once and assigns it to a lookup table to be used forever. Linear interpolation then does some simple, quick
+      addition/subtraction/multiplication/division for each input based upon the lookup table. sin(x) from math.h, on
+      the other hand, would be doing a very complex calculation for each and every input.
+3) While this is kind of implied by 7) in the stated goals, Demonstrate the intuitive use of assert() for tesing.
+   A) Achieved by forcing students to create a many-functioned .c file to achieve the stated goals. Most students, of course,
+      tried to write everything all at once and then are shafted when they can't find out why it isn't working.
+      By requiring the use of assert() on pre and post conditions for functions, the requirement both helped us in implementation,
+      as well as in teaching us the appreciation and necessity of unit testing.
+      
+
+II. Implementation
+
+Most of the information concerning my implementation can be found in the .c file of this folder.
+However, some files demonstrating good practices that I have since lost track of were essential in getting this assignment done.
+These files were pseudo-version control and pseudo-testing for each of my functions.
+
+Essentially, the structure of the folder for this assignment on my linux machine were as follows:
+mainfile.c
+mainfunctiontest.txt
+function0test.txt
+function1test.txt
+function2test.txt
+
+So on and so forth. Essentially what I did was, for each attempted implementation of a function, I would store previous versions
+in text form in that function's test.txt file. If something broke or otherwise needed investigation, I could check old versions
+of that function for reference. It saved me from having to completely rebuild my Taylor Series function from the ground up.
+
+In addition to all of that, I received help from several sources, including a programming Discord's C channel and /r/C_Programming.
+While I avoid, and would recommend avoiding, straight up asking for code, I asked my questions in such a way that I was seeking
+guidance on concept grasp, be it logic or math. 
+
+For example, before I stupidly deleted the post (the remnants of which can be found at
+https://www.reddit.com/r/C_Programming/comments/ann0zt/trying_to_implement_a_more_accurate_taylor_series/),
+my /r/C_Programming post essentially asked, "My Taylor series implementation grows wildly inaccurate. What's going wrong?"
+From that thread, I learned that I was pretty fundamentally misunderstanding both the math behind a Taylor Series and 
+the behavior of one. Excuse this, as its a fairly complex subject for me when I just started Calculus I. Those in the thread
+helped me understand where my thinking was off and pointed me in the right direction toward implementing it properly.
+
+tl;dr of II. Implementation: Unit testing and version control is important. Asking for help conceptually is fine, try not to 
+ask for code. Be teachable.
+
+III. What I Learned
+
+While I can't be sure of my professors unstated ulterior motives for assigning this project, I believe I came to sufficiently
+understand everything I listed as his ulterior motives, plus some. All of it together:
+
+1) There are many possible methods to do/implement most things.
+2) Each method of doing/implementing something has different levels of ease of use and resource intensivity.
+   A) You could potentially think of level of ease of use as just another aspect of resource intensivity
+      - the resource of your time and effort.
+3) assert() is extremely useful for testing and evaluating your program.
+4) Version control and unit testing is of paramount importance.
+
+IV. Acknowledgements
+
+/u/skeeto, for telling me off when I needed to be told off and motivating me to make this
+/u/MuckleEwe, for reminding me that sin(1 degrees) = sin(179 degrees)
+Linus Torvalds, for his infuriating and wonderful kernel and version control system
+Honey buns, Adderall, and Powerade, for fueling me as I pulled this off
